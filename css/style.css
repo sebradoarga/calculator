@@ -72,17 +72,10 @@ body {
 }
 
 #refreshButtons button {
-    height: 70px;
+    height: 30%;
     width: 70px;
 }
 
-#CE {
-    margin-bottom: 10px;
-}
-
-#AC {
-    margin-top: 10px;
-}
 
 #mainButtons {
     width: 50%;
@@ -116,7 +109,8 @@ body {
 
 #equalSign {
     width: 150px;
-    height: 33px;
+    height: 50px;
+    font-size: 30px;
 }
 
 button {
