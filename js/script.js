@@ -45,8 +45,10 @@ dotButton.addEventListener("click", (e) => {
         screenText = [0, "."];
         updateDisplay();
     } else {
-        screenText.push(".");
-        updateDisplay();
+        if(!screenText.includes(".")) {
+            screenText.push(".");
+            updateDisplay();    
+        }
     }
 })
 
