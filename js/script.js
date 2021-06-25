@@ -17,11 +17,11 @@ updateDisplay();
 const numberButtons = document.querySelectorAll(".numberButton");
 numberButtons.forEach((numberButton) => {
     numberButton.addEventListener("click", (e) => {
-        if(screenText[0] === 0 && screenText.length === 1) {
+        if((screenText[0] === 0 && screenText.length === 1)) {
             if(numberButton.textContent !== "0" && numberButton.textContent !== "00") {
                 screenText.pop();
                 screenText.push(numberButton.textContent);
-                updateDisplay();;
+                updateDisplay();
             }
         } else {
             screenText.push(numberButton.textContent);
@@ -35,12 +35,13 @@ allClear.addEventListener("click", (e) => {
     screenText = [0];
     firstOperand = 0;
     secondOperand = 0;
+    currentOperation = "";
     updateDisplay();
 })
 
 const dotButton = document.getElementById("dot");
 dotButton.addEventListener("click", (e) => {
-    if(screenText[0] === 0) {
+    if(screenText[0] === 0 || screenText.length === 0) {
         screenText = [0, "."];
         updateDisplay();
     } else {
@@ -50,7 +51,7 @@ dotButton.addEventListener("click", (e) => {
 })
 
 const operate = () => {
-    let result;
+    let result = secondOperand;
     switch(currentOperation) {
         case "addition":
             result = firstOperand + secondOperand;
@@ -65,9 +66,9 @@ const operate = () => {
             result = firstOperand / secondOperand;
             break;
     }
-    if(result % 1 != 0) {
-        result = result.toFixed(2);
-    }
+    // if(result % 1 != 0) {
+    //     result = result.toFixed(2);
+    // }
     screenText.push(result);
 }
 
@@ -75,29 +76,31 @@ const operationButtons = document.querySelectorAll(".operationButton");
 operationButtons.forEach((operationButton) => {
     operationButton.addEventListener("click", (e) => {
         if(firstOperand !== 0) {
-            secondOperand = +screenText.join("");
-            screenText = [];
-            operate();
-            updateDisplay();
-            firstOperand = +screenText.join("");
-            screenText = [0];
-            switch(operationButton.textContent) {
-                case "+":
-                    currentOperation = "addition";
-                    break;
-                case "-":
-                    currentOperation = "substraction";
-                    break;
-                case "x":
-                    currentOperation = "multiplication";
-                    break;
-                case "/":
-                    currentOperation = "division";
-                    break;        
+            if(screenText.length !== 0) {
+                secondOperand = +screenText.join("");
+                screenText = [];
+                operate();
+                updateDisplay();
+                firstOperand = +screenText.join("");
+                screenText = [];
+                switch(operationButton.textContent) {
+                    case "+":
+                        currentOperation = "addition";
+                        break;
+                    case "-":
+                        currentOperation = "substraction";
+                        break;
+                    case "x":
+                        currentOperation = "multiplication";
+                        break;
+                    case "/":
+                        currentOperation = "division";
+                        break;        
+                }    
             }
         } else {
             firstOperand = +screenText.join("");
-            screenText = [0];
+            screenText = [];
             switch(operationButton.textContent) {
                 case "+":
                     currentOperation = "addition";
@@ -122,4 +125,6 @@ equalButton.addEventListener("click", (e) => {
     screenText = [];
     operate();
     updateDisplay();
+    firstOperand = 0;
+    currentOperation = "addition";
 })
