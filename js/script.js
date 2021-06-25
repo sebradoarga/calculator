@@ -30,6 +30,16 @@ numberButtons.forEach((numberButton) => {
     });
 })
 
+const clearEntry = document.getElementById("CE");
+clearEntry.addEventListener("click", (e) => {
+    if(screenText.length === 1){
+        screenText = [0];
+    } else {
+        screenText.pop();
+    }
+    updateDisplay();
+});
+
 const allClear = document.getElementById("AC");
 allClear.addEventListener("click", (e) => {
     screenText = [0];
