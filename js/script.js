@@ -140,3 +140,33 @@ equalButton.addEventListener("click", (e) => {
     firstOperand = 0;
     currentOperation = "addition";
 })
+
+document.addEventListener("keyup", (e) => {
+    if (e.key >= 0 && e.key <= 9) {
+        document.getElementById(`number-${e.key}`).click();
+    } else {
+        switch(e.key) {
+            case "+":
+                document.getElementById("addition").click();
+                break;
+            case "-":
+                document.getElementById("subtraction").click();
+                break;
+            case "*":
+                document.getElementById("multiplication").click();
+                break;
+            case "/":
+                document.getElementById("division").click();
+                break;
+            case "Enter":
+                equalButton.click();
+                break;
+            case ".":
+                dotButton.click();
+                break;
+            case "Backspace":
+                clearEntry.click();
+                break;
+        }
+    }
+})
